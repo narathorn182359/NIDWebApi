@@ -242,21 +242,6 @@ class Evaluate6090Controller extends Controller
                         'pass_90_status' => '2',
                         'status_eva' => '1',
                     ]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             }
         }
 
@@ -404,28 +389,8 @@ class Evaluate6090Controller extends Controller
                 );
 
                 return view('assessor.index_option', $data);
-
-
-
-
-
-
-
-
-
                 $eva = DB::table('ngg_operational_sup')->get();
             }
-
-
-
-
-
-
-
-
-
-
-
             $data = array(
                 'check' => $check,
                 'assessor' => $assessor,
@@ -666,7 +631,9 @@ class Evaluate6090Controller extends Controller
                 } else if ($post->status_eva == 1 && $post->active_op == 1) {
                     $status_eva = "<p class='text-success'>ประเมินครบแล้ว</p>";
                     $i = '';
-                    $j = "<a href='javascript:void(0)' class='btn btn-danger btn-circle btn-xs deleteEva'  data-id='{$post->assessed}' >ยกเลิกผลการประเมิน</a>";
+                    $j = "
+                    <a href='/evaluation/{$post->assessed}/{$post->degree}' class='btn btn-success btn-circle btn-xs'>รายงานผล</a>
+                    <a href='javascript:void(0)' class='btn btn-danger btn-circle btn-xs deleteEva'  data-id='{$post->assessed}' >ยกเลิกผลการประเมิน</a>";
                 }
 
                 $nestedData['assessor'] = $post->assessor;

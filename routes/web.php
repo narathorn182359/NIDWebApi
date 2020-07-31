@@ -30,6 +30,8 @@ Route::post('/save_select', 'Evaluate6090Controller@save_select')->name('save_se
 Route::post('/save_evar6090', 'Evaluate6090Controller@save_evar6090')->name('save_evar6090');
 Route::post('/save_eva90', 'Evaluate6090Controller@save_eva90')->name('save_eva90');
 Route::post('/enable90', 'Evaluate6090Controller@enable90')->name('enable90');
+Route::get('/evaluation/{code_staff}/{degree}', 'PDFController@evaluation')->name('evaluation');
+
 
 
 
