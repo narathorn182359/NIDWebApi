@@ -228,4 +228,36 @@
             </form>
         </div>
     </div>
+
+
+    <div class="modal fade" id="modal-set90">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">เพิ่มรายชื่อผู้ประเมิน</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="form-add90">
+                    <input type="hidden" id="assessor60" name="assessor60">
+                    <input type="hidden" id="assessed60" name="assessed60">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <select class="form-control  select2" name="assessor90" id="assessor90" required>
+                                <option value="">เลือกพนักงาน</option>
+                                @foreach($staff as $item)
+                                    <option value="{{ $item->Code_Staff }}">({{ $item->Code_Staff }}) {{ $item->Name_Thai }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                        <button type="submit" class="btn btn-primary"     >บันทึก</button>
+                    </div>
+            </div>
+            </form>
+        </div>
+    </div>
 @endsection

@@ -64,6 +64,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                    </p>
                       
                    @endforeach
+
+                   @foreach ($staff_90 as $item)
+                   <p class="card-text">
+
+                   <a href="{{url('/index_option/'.$item->assessor.'/'.$item->assessed)}}" class="btn btn-info">{{$item->Name_Thai}}</a>     
+                   </p>
+                      
+                   @endforeach
+                   
                   
                 </div>
               </div><!-- /.card -->
