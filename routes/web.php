@@ -31,7 +31,7 @@ Route::post('/save_evar6090', 'Evaluate6090Controller@save_evar6090')->name('sav
 Route::post('/save_eva90', 'Evaluate6090Controller@save_eva90')->name('save_eva90');
 Route::post('/enable90', 'Evaluate6090Controller@enable90')->name('enable90');
 Route::get('/evaluation/{code_staff}/{degree}', 'PDFController@evaluation')->name('evaluation');
-
+Route::post('/kpi_manual', 'Evaluate6090Controller@kpi_manual')->name('kpi_manual');
 
 
 

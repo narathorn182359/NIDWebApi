@@ -20,7 +20,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap" rel="stylesheet">
-<link href="{{asset('css/loading.css')}}" rel="stylesheet" />
+    <link href="{{ asset('css/loading.css') }}" rel="stylesheet" />
     <style>
         body {
             font-family: 'Chakra Petch', sans-serif;
@@ -54,7 +54,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- Main content -->
             <div class="content">
                 <div class="container">
-                    @if($check->option_eva == '')
+
+                    @if ($check->option_eva == '')
                         <div class="row">
                             <div class="col-lg-12">
 
@@ -71,8 +72,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             2. แบบกำหนดเอง ทางผู้ประเมินจะต้องกำหนดการตั้งค่า
 
                                         </p>
-                                        <a href="javascript:void(0)" class="btn btn-info  select_1" data-name="แบบตัวเลือก"
-                                            data-assessor="{{ $check->assessor }}"
+                                        <a href="javascript:void(0)" class="btn btn-info  select_1"
+                                            data-name="แบบตัวเลือก" data-assessor="{{ $check->assessor }}"
                                             data-assessed="{{ $check->assessed }}">แบบตัวเลือก</a>
                                         <a href="javascript:void(0)" class="btn btn-primary select_2"
                                             data-name="แบบกำหนดเอง" data-assessor="{{ $check->assessor }}"
@@ -84,138 +85,258 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <!-- /.col-md-6 -->
                         </div>
                     @endif
+                    @isset($data_all)
+                        @if ($check->pass_60_status == 1 && $check->option_eva != '')
+                            <input type="hidden" name="pass" id="pass" value="60" />
+                            <input type="hidden" name="degree" id="degree" value="{{ $check->degree }}" />
+                            <dl class="row">
+                                <dt class="col-sm-4">ชื่อ-สกุล</dt>
+                                <dd class="col-sm-8"> {{ $check->Name_Thai }} ( {{ $check->Code_Staff }})</dd>
+                                <dt class="col-sm-4">ตำแหน่ง</dt>
+                                <dd class="col-sm-8"> {{ $check->Position }}</dd>
+                                <dt class="col-sm-4">ประเมิน 60 วันที่</dt>
+                                <dd class="col-sm-8">
+                                    {{ $check->pass_60 }}
+                                </dd>
+                                <dt class="col-sm-4">ประเมิน 90 วันที่</dt>
+                                <dd class="col-sm-8">
+                                    {{ $check->pass_90 }}
+                            </dl>
+                            <form id='form-saveevar'>
+                                @foreach ($data_all as $item)
+                                    <div class="callout callout-danger">
+                                        <h5>{{ $item['name_operation'] }}</h5>
+                                        <p style="font-size:12px">{{ $item['remark_opf'] }}</p>
+                                        <div class="row">
+                                            <div class="form-group clearfix">
+                                                @foreach ($item['select'] as $itemf)
 
-                    @if($check->pass_60_status == 1 && $check->option_eva != '')
-                        <input type="hidden" name="pass" id="pass" value="60" />
-                        <input type="hidden" name="degree" id="degree" value="{{ $check->degree }}" />
-                        <dl class="row">
-                            <dt class="col-sm-4">ชื่อ-สกุล</dt>
-                            <dd class="col-sm-8"> {{ $check->Name_Thai }} ( {{ $check->Code_Staff }})</dd>
-                            <dt class="col-sm-4">ตำแหน่ง</dt>
-                            <dd class="col-sm-8"> {{ $check->Position }}</dd>
-                            <dt class="col-sm-4">ประเมิน 60 วันที่</dt>
-                            <dd class="col-sm-8">
-                                {{ $check->pass_60 }}
-                            </dd>
-                            <dt class="col-sm-4">ประเมิน 90 วันที่</dt>
-                            <dd class="col-sm-8">
-                                {{ $check->pass_90 }}
-                        </dl>
-                        <form id='form-saveevar'>
-                            @foreach($data_all as $item)
-                                <div class="callout callout-danger">
-                                    <h5>{{ $item['name_operation'] }}</h5>
-                                    <p style="font-size:12px">{{ $item['remark_opf'] }}</p>
-                                    <div class="row">
-                                        <div class="form-group clearfix">
-                                            @foreach($item['select'] as $itemf)
-
-                                                <div class="icheck-danger d-inline">
-                                                    <input type="radio" name="{{ $itemf['id_office'] }}"
-                                                        id="radioDanger{{ $itemf['id_select_opf'] }}" required
-                                                        data-toggle="tooltip" title="{{ $itemf['remark'] }}"
-                                                        value="{{ $itemf['select'] }}" />
-                                                    <label for="radioDanger{{ $itemf['id_select_opf'] }}">
-                                                        {{ $itemf['select'] }}
-                                                    </label>
-                                                </div>
+                                                    <div class="icheck-danger d-inline">
+                                                        <input type="radio" name="{{ $itemf['id_office'] }}"
+                                                            id="radioDanger{{ $itemf['id_select_opf'] }}" required
+                                                            data-toggle="tooltip" title="{{ $itemf['remark'] }}"
+                                                            value="{{ $itemf['select'] }}" />
+                                                        <label for="radioDanger{{ $itemf['id_select_opf'] }}">
+                                                            {{ $itemf['select'] }}
+                                                        </label>
+                                                    </div>
 
 
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
                                 @endforeach
-                        </div>
-                    </div>
-                </div>
-            @endforeach
 
-            <div class="row">
-                <div class="col-md-12">
-                    <label>ความคิดเห็น:</label>
-                    <textarea class="form-control" row='5' name="remark" id="remark" maxlength="500"></textarea>
-                </div>
-            </div>
-            <br>
-            <div class="row">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>ความคิดเห็น:</label>
+                                        <textarea class="form-control" row='5' name="remark" id="remark"
+                                            maxlength="500"></textarea>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
 
-                <div class="col-md-12">
-                    <div class="text-center">
-                        <input type="submit" class="btn btn-success" value="บันทึก" id="submit" />
-                    </div>
-                </div>
+                                    <div class="col-md-12">
+                                        <div class="text-center">
+                                            <input type="submit" class="btn btn-success" value="บันทึก" id="submit" />
+                                        </div>
+                                    </div>
 
-            </div>
+                                </div>
 
-            </form>
-        @endif
+                            </form>
+                        @endif
 
-        @if($check->pass_90_status == '1')
-        <input type="hidden" name="pass" id="pass" value="90" />
-        <input type="hidden" name="degree" id="degree" value="{{ $check->degree }}" />
-        <dl class="row">
-            <dt class="col-sm-4">ชื่อ-สกุล</dt>
-            <dd class="col-sm-8"> {{ $check->Name_Thai }} ( {{ $check->Code_Staff }})</dd>
-            <dt class="col-sm-4">ตำแหน่ง</dt>
-            <dd class="col-sm-8"> {{ $check->Position }}</dd>
-            <dt class="col-sm-4">ประเมิน 90 วันที่</dt>
-            <dd class="col-sm-8">
-                {{ $check->pass_90 }}
-        </dl>
-        <form id='form-saveevar'>
-            @foreach($data_all as $item)
-                <div class="callout callout-danger">
-                    <h5>{{ $item['name_operation'] }}</h5>
-                    <p style="font-size:12px">{{ $item['remark_opf'] }}</p>
-                    <div class="row">
-                        <div class="form-group clearfix">
-                            @foreach($item['select'] as $itemf)
+                        @if ($check->pass_90_status == '1')
+                            <input type="hidden" name="pass" id="pass" value="90" />
+                            <input type="hidden" name="degree" id="degree" value="{{ $check->degree }}" />
+                            <dl class="row">
+                                <dt class="col-sm-4">ชื่อ-สกุล</dt>
+                                <dd class="col-sm-8"> {{ $check->Name_Thai }} ( {{ $check->Code_Staff }})</dd>
+                                <dt class="col-sm-4">ตำแหน่ง</dt>
+                                <dd class="col-sm-8"> {{ $check->Position }}</dd>
+                                <dt class="col-sm-4">ประเมิน 90 วันที่</dt>
+                                <dd class="col-sm-8">
+                                    {{ $check->pass_90 }}
+                            </dl>
+                            <form id='form-saveevar'>
+                                @foreach ($data_all as $item)
+                                    <div class="callout callout-danger">
+                                        <h5>{{ $item['name_operation'] }}</h5>
+                                        <p style="font-size:12px">{{ $item['remark_opf'] }}</p>
+                                        <div class="row">
+                                            <div class="form-group clearfix">
+                                                @foreach ($item['select'] as $itemf)
 
-                                <div class="icheck-danger d-inline">
-                                    <input type="radio" name="{{ $itemf['id_office'] }}"
-                                        id="radioDanger{{ $itemf['id_select_opf'] }}" required
-                                        data-toggle="tooltip" title="{{ $itemf['remark'] }}!"
-                                        value="{{ $itemf['select'] }}" />
-                                    <label for="radioDanger{{ $itemf['id_select_opf'] }}">
-                                        {{ $itemf['select'] }}
-                                    </label>
+                                                    <div class="icheck-danger d-inline">
+                                                        <input type="radio" name="{{ $itemf['id_office'] }}"
+                                                            id="radioDanger{{ $itemf['id_select_opf'] }}" required
+                                                            data-toggle="tooltip" title="{{ $itemf['remark'] }}!"
+                                                            value="{{ $itemf['select'] }}" />
+                                                        <label for="radioDanger{{ $itemf['id_select_opf'] }}">
+                                                            {{ $itemf['select'] }}
+                                                        </label>
+                                                    </div>
+
+
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>ความคิดเห็น:</label>
+                                        <textarea class="form-control" row='5' name="remark" id="remark"
+                                            maxlength="500"></textarea>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <div class="text-center">
+                                            <input type="submit" class="btn btn-success" value="บันทึก" id="submit" />
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </form>
+
+
+
+
+                        @endif
+
+                        <br><br><br><br><br>
+                    @endisset
+
+
+
+
+                    @if ($check->pass_60_status == 1 && $check->option_eva == 'แบบกำหนดเอง')
+                        <form id="form-kpi-manual">
+
+
+                            <div class="container1">
+                                <button class="add_form_field btn btn-success">เพิ่มเป้าหมาย &nbsp;
+                                    <span style="font-size:16px; font-weight:bold;">+ </span>
+                                </button>
+                                <br><br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>ชื่อ KPI:</label>
+                                            <input type="text" name="KPI[]" class="form-control" required
+                                                placeholder="ยอดขาย">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>ลักษณะตัวชี้วัดผลงาน เพื่อใช้ในการคำนวณ:</label>
+                                            <input type="text" name="performance_indicators[]" class="form-control"
+                                                required placeholder="วัดยอดขาย , 3 Project ">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>หน่วยนับ:</label>
+                                            <select class="form-control" name="unit[]" required>
+                                                <option value="">เลือก</option>
+                                                <option value="%">%</option>
+                                                <option value="N">N (หน่วย)</option>
+                                                <option value="B">B (บาท)</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>น้ำหนัก (%):</label>
+                                            <input type="number" name="weight[]" class="form-control" required>
+
+                                        </div>
+                                    </div>
+
+
                                 </div>
 
 
-                @endforeach
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>เป้าหมาย 60 วัน:</label>
+                                            <input type="number" name="target_60[]" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>ทำได้:</label>
+                                            <input type="number" name="seccess_60[]" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                            <div>
+                                <button class="btn btn-success" type="submit">บันทึก</button>
+                            </div>
+
+                        </form>
+                    @endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content -->
         </div>
-    </div>
-</div>
-@endforeach
-
-<div class="row">
-<div class="col-md-12">
-    <label>ความคิดเห็น:</label>
-    <textarea class="form-control" row='5' name="remark" id="remark" maxlength="500"></textarea>
-</div>
-</div>
-<br>
-<div class="row">
-
-<div class="col-md-12">
-    <div class="text-center">
-        <input type="submit" class="btn btn-success" value="บันทึก" id="submit" />
-    </div>
-</div>
-
-</div>
-
-</form>
-
-
-
-
-        @endif
-
-        <br><br><br><br><br>
-        <!-- /.row -->
-    </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
+        <!-- /.content-wrapper -->
 
 
 

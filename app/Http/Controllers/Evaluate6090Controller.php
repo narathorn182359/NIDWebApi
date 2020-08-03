@@ -9,10 +9,22 @@ use Illuminate\Support\Facades\DB;
 class Evaluate6090Controller extends Controller
 {
 
-    public function __construct()
+  
+
+
+
+
+    
+    public function kpi_manual(request $request)
     {
-        $this->middleware('auth');
+
+
     }
+
+
+
+
+
 
     public function enable90(request $request)
     {
@@ -109,8 +121,7 @@ class Evaluate6090Controller extends Controller
                         'pass_60_status' => '0',
                     ]);
 
-            } else if($request->degree == 'ระดับผู้บังคับบัญชา') {
-
+            } else if ($request->degree == 'ระดับผู้บังคับบัญชา') {
 
                 foreach ($request->evar as $item_1) {
 
@@ -199,7 +210,7 @@ class Evaluate6090Controller extends Controller
                         'status_eva' => '1',
                     ]);
 
-            } else if($request->degree == 'ระดับผู้บังคับบัญชา') {
+            } else if ($request->degree == 'ระดับผู้บังคับบัญชา') {
 
                 foreach ($request->evar as $item_1) {
 
@@ -308,8 +319,6 @@ class Evaluate6090Controller extends Controller
             ->where('active_op', 1)
             ->first();
 
-
-
         $check_2 = DB::table('ngg_operational_6090')
             ->leftJoin('users_detail', 'ngg_operational_6090.assessed', 'users_detail.Code_Staff')
             ->where('assessor', $assessor)
@@ -352,15 +361,14 @@ class Evaluate6090Controller extends Controller
                 );
 
                 return view('assessor.index_option', $data);
-            } else if($check_2->degree  ==  'ระดับผู้บังคับบัญชา') {
-
+            } else if ($check_2->degree == 'ระดับผู้บังคับบัญชา') {
 
                 $eva = DB::table('ngg_operational_sup')->get();
                 foreach ($eva as $item) {
                     $get = DB::table('ngg_operation_select_sup')->where('id_sup_sup', $item->id_ops)->get();
                     foreach ($get as $getu) {
                         $data = array(
-                            'id_select_opf' => $getu->id_select_sup ,
+                            'id_select_opf' => $getu->id_select_sup,
                             'id_office' => $getu->id_sup_sup,
                             'select' => $getu->name_select_sup,
                             'remark' => $getu->remark_sup,
@@ -375,9 +383,8 @@ class Evaluate6090Controller extends Controller
 
                     );
 
-
                     $data_all[] = $data;
-                  
+
                     $get_data = [];
 
                 }
@@ -397,6 +404,15 @@ class Evaluate6090Controller extends Controller
 
             );
             return view('assessor.index_option', $data);
+        } else if ($check_2->option_eva == 'แบบกำหนดเอง') {
+
+            $data = array(
+                'check' => $check_2,
+                'assessor' => $assessor,
+
+            );
+            return view('assessor.index_option', $data);
+
         }
 
         $data = array(

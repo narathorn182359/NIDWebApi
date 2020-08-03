@@ -39,7 +39,7 @@ $(document).ready(function () {
      
         Swal.fire({
             icon: "success",
-            title: "บันทึกสำเร็จ่ะ",
+            title: "บันทึกสำเร็จ",
             text: "หากสงสัยกรุณาติดต่อฝ่ายบุคคล",
             confirmButtonText: "ตกลง"
           }).then(function () {
