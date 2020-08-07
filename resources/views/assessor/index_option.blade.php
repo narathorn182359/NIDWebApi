@@ -219,85 +219,102 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
                     @if ($check->pass_60_status == 1 && $check->option_eva == 'แบบกำหนดเอง')
+                        <a href="javascript:void(0);" class="add_button btn btn-success" title="Add field">เพิ่มเป้าหมาย
+                            &nbsp;
+                            <span style="font-size:16px; font-weight:bold;">+ </span></a>
+
+                        <br><br>
                         <form id="form-kpi-manual">
+                            <div class="card card-secondary">
+                                <div class="card-header">
+                                    <h3 class="card-title">เป้าหมาย</h3>
+                                  
+                                </div>
+                                <div class="card-body">
 
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>ชื่อ KPI:</label>
+                                                <input type="text" name="KPI[]" class="form-control" required
+                                                    placeholder="เช่น ยอดขาย">
 
-                            <div class="container1">
-                                <button class="add_form_field btn btn-success">เพิ่มเป้าหมาย &nbsp;
-                                    <span style="font-size:16px; font-weight:bold;">+ </span>
-                                </button>
-                                <br><br>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>ชื่อ KPI:</label>
-                                            <input type="text" name="KPI[]" class="form-control" required
-                                                placeholder="ยอดขาย">
+                                            </div>
+                                        </div>
 
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>ลักษณะตัวชี้วัดผลงาน เพื่อใช้ในการคำนวณ:</label>
+                                                <input type="text" name="performance_indicators[]" class="form-control"
+                                                    required placeholder="เช่น วัดยอดขาย , 3 Project ">
+
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>ลักษณะตัวชี้วัดผลงาน เพื่อใช้ในการคำนวณ:</label>
-                                            <input type="text" name="performance_indicators[]" class="form-control"
-                                                required placeholder="วัดยอดขาย , 3 Project ">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>หน่วยนับ:</label>
+                                                <select class="form-control" name="unit[]" required>
+                                                    <option value="">เลือก</option>
+                                                    <option value="%">%</option>
+                                                    <option value="N">N (หน่วย)</option>
+                                                    <option value="B">B (บาท)</option>
+                                                </select>
 
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>น้ำหนัก (%):</label>
+                                                <input type="number" name="weight[]" class="form-control" required>
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>เป้าหมาย 60 วัน:</label>
+                                                <input type="number" name="target_60[]" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>ทำได้:</label>
+                                                <input type="number" name="seccess_60[]" class="form-control" required>
+                                            </div>
                                         </div>
                                     </div>
+                                    <hr>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>หน่วยนับ:</label>
-                                            <select class="form-control" name="unit[]" required>
-                                                <option value="">เลือก</option>
-                                                <option value="%">%</option>
-                                                <option value="N">N (หน่วย)</option>
-                                                <option value="B">B (บาท)</option>
-                                            </select>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>น้ำหนัก (%):</label>
-                                            <input type="number" name="weight[]" class="form-control" required>
-
-                                        </div>
-                                    </div>
-
-
-                                </div>
-
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>เป้าหมาย 60 วัน:</label>
-                                            <input type="number" name="target_60[]" class="form-control" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>ทำได้:</label>
-                                            <input type="number" name="seccess_60[]" class="form-control" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
+                            
                             </div>
+                            <div class="field_wrapper">
+
+
+
+                            </div>
+
                             <div>
-                                <button class="btn btn-success" type="submit">บันทึก</button>
+                                <center>
+                                    <button class="btn btn-success" type="submit">ส่งตรวจสอบ</button>
+                                </center>
+                               
                             </div>
 
                         </form>
+
+
+
                     @endif
-
-
-
 
 
 
